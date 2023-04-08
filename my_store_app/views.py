@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.http import HttpRequest
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView
@@ -22,6 +22,7 @@ from django.contrib.auth.views import LogoutView, LoginView
 from django.contrib.auth.models import User
 import os
 from django.core.exceptions import ValidationError
+from cart.forms import CartAddProductForm
 
 
 def register_view(request):
@@ -95,3 +96,18 @@ class ProfileView(View):
 class HistoryView(View):
     def get(self, request: HttpRequest):
         return render(request, 'my_store_app/historyorder.html')
+
+
+class CartView(View):
+    def get(self, request: HttpRequest):
+        return render(request, 'my_store_app/cart.html')
+
+
+def product_detail(request, id, slug):
+    product = get_object_or_404(Product,
+                                id=id,
+                                slug=slug,
+                                available=True)
+    cart_product_form = CartAddProductForm()
+    return render(request, 'products/product.html', {'product': product,
+                                                        'cart_product_form': cart_product_form})

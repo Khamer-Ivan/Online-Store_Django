@@ -28,6 +28,8 @@
     <option name="TEMPLATE_FOLDERS">
       <list>
         <option value="$MODULE_DIR$/products/templates" />
+        <option value="$MODULE_DIR$/cart/templates" />
+        <option value="$MODULE_DIR$/my_store_app/templates" />
       </list>
     </option>
   </component>

@@ -39,8 +39,12 @@
                                         </button>
                                     </div>
                                 </div>
-                                <div class="ProductCard-cartElement"><a class="btn btn_primary" href="#modal_open"><img class="btn-icon" src="{% static 'assets/img/icons/card/cart_white.svg' %}" alt="cart_white.svg" /><span class="btn-content">Купить</span></a>
-                                </div>
+                                    <p class="price">{{ product.price }}</p>
+                                    <form action="{% url "cart:cart_add" product.id %}" method="post">
+                                        {{ cart_product_form }}
+                                        {% csrf_token %}
+                                        <input type="submit" value="Купить">
+                                    </form>
                                 <div id="modal_open" class="my_modal">
                                     <div class="my_modal-dialog">
                                         <div class="my_modal-content">
