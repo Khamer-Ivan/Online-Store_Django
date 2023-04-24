@@ -107,7 +107,7 @@
                                     <a class="dropdown-content-a" href="{% url 'my_store_app:logout' %}">Выход</a>
                                 </div>
                             </div>
-                            <a class="CartBlock-block" href="{% url 'my_store_app:cart' %}"><img class="CartBlock-img" src="{% static 'assets/img/icons/cart.svg' %}" alt="cart.svg" /><span class="CartBlock-amount">{{ total_items }}</span></a>
+                            <a class="CartBlock-block" href="{% url 'my_store_app:cart' pk=request.user.profile.pk%}"><img class="CartBlock-img" src="{% static 'assets/img/icons/cart.svg' %}" alt="cart.svg" /><span class="CartBlock-amount">{{ total_items }}</span></a>
                             <div class="CartBlock-block"><span class="CartBlock-price">{{ cart.get_total_price }}</span>
                         {% endwith %}
 

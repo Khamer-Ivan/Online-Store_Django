@@ -12,7 +12,7 @@ from my_store_app.models import (Profile,
                                  Specifications,
                                  OrderHistory,
                                  Order,
-                                 Basket,
+                                 Cart,
                                  Payment,
                                  Shop
                                  )
@@ -99,8 +99,9 @@ class HistoryView(View):
 
 
 class CartView(View):
-    def get(self, request: HttpRequest):
-        return render(request, 'my_store_app/cart.html')
+    def get(self, request: HttpRequest, **kwargs):
+        cart = Cart.objects.filter(username=kwargs['pk'])
+        return render(request, 'cart/cart.html', {'cart': cart})
 
 
 def product_detail(request, id, slug):

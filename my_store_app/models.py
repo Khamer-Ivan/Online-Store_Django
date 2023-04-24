@@ -165,9 +165,10 @@ class Order(models.Model):  # покупка товаров из корзины
         return self.product_order
 
 
-class Basket(models.Model):  # корзина пользователя
-    username = models.OneToOneField(Profile, unique=True, on_delete=models.CASCADE, related_name='profile')
-    product = models.ManyToManyField('Product', related_name='product')
+class Cart(models.Model):  # корзина пользователя
+    username = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='profile')
+    product = models.ForeignKey(Product, default=1, on_delete=models.CASCADE, related_name='product')
+    quantity = models.PositiveIntegerField(default=0)
     create_at = models.DateField(auto_now_add=True)
 
     class Meta:

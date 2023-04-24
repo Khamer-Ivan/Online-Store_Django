@@ -7,7 +7,7 @@ from my_store_app.models import (Profile,
                                  Specifications,
                                  OrderHistory,
                                  Order,
-                                 Basket,
+                                 Cart,
                                  Payment,
                                  Shop,
                                  )
@@ -62,7 +62,7 @@ class OrderAdmin(admin.ModelAdmin):
     search_fields = ['product_order']
 
 
-class BasketAdmin(admin.ModelAdmin):
+class CartAdmin(admin.ModelAdmin):
     list_display = ['username', 'create_at']
     search_fields = ['username']
 
@@ -80,7 +80,7 @@ class ShopAdmin(admin.ModelAdmin):
 admin.site.register(Profile, UserProfileAdmin)
 admin.site.register(CategoryProduct, CategoryProductAdmin)
 admin.site.register(Product, ProductAdmin)
-admin.site.register(Basket, BasketAdmin)
+admin.site.register(Cart, CartAdmin)
 admin.site.register(Reviews, ReviewsAdmin)
 admin.site.register(TagsFile, TagsAdmin)
 admin.site.register(Specifications, SpecificationsAdmin)

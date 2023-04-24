@@ -1,6 +1,6 @@
 from django import template
 
-from my_store_app.models import Product, CategoryProduct, TagsFile
+from my_store_app.models import Product, CategoryProduct, TagsFile, Cart
 
 
 register = template.Library()
@@ -21,3 +21,7 @@ def all_category():
 def all_tags():
     return TagsFile.objects.all()
 
+
+@register.simple_tag()
+def cart_products(**kwargs):
+    return Cart.objects.filter(username=kwargs['pk'])

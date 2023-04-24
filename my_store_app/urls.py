@@ -23,5 +23,5 @@ urlpatterns = [
     path('account/', AccountView.as_view(), name='account'),
     path('profile/', ProfileView.as_view(), name='profile'),
     path('history/', HistoryView.as_view(), name='history'),
-    path('cart/', CartView.as_view(), name='cart'),
+    path('cart/<int:pk>', CartView.as_view(), name='cart'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
