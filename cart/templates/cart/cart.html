@@ -1,6 +1,8 @@
 {% extends "my_store_app/base.html" %}
 {% load static %}
+{% load products_tags %}
 {% block content %}
+    {% cart_list pk=request.user.profile.pk as cart %}
     {% for product in cart %}
         <div class="Middle Middle_top">
             <div class="Section">
@@ -11,7 +13,7 @@
                             <div class="Cart-block Cart-block_row">
                             <div class="Cart-block Cart-block_pict"><a class="Cart-pict" href="{% url 'products:product' pk=product.product.pk %}"><img class="Cart-img" src="{{ product.product.product_picture.url }} " alt="card.jpg" /></a>
                             </div>
-                            <div class="Cart-block Cart-block_info"><a class="Cart-title" href="#">{{ product.product.title }}</a>
+                            <div class="Cart-block Cart-block_info"><a class="Cart-title" href="{% url 'products:product' pk=product.product.pk %}">{{ product.product.title }}</a>
                                 <div class="Cart-desc">{{ product.product.description }}
                                 </div>
                             </div>
@@ -29,23 +31,24 @@
                             <div class="Cart-block Cart-block_amount">
                                 <div class="Cart-amount">
                                     <div class="Amount">
-                                        <button class="Amount-remove" type="button">
+                                        <button class="Amount-remove" type="submit">
                                         </button>
-                                        <input class="Amount-input form-input" name="amount" type="text" value="{{ product.quantity }}" />
-                                        <button class="Amount-add" type="button">
+                                        <input class="Amount-input" name="amount" min="1" type="text" value="{{ product.quantity }}" />
+                                        <button class="Amount-add" type="submit">
                                         </button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="Cart-block Cart-block_delete"><a class="Cart-delete" href="{% url 'cart:delete_product' id=product.pk %}"><img src="{% static 'assets/img/icons/card/delete.svg' %}" alt="delete.svg" /></a>
-                            </div>
+                            <div class="Cart-block Cart-block_delete"><a class="Amount" href="{% url 'cart:update_product' id=product.pk %}">Обновить</a></div>
+                           <div class="Cart-block Cart-block_delete"><a class="Cart-delete" href="{% url 'cart:delete_product' id=product.pk %}"><img src="{% static 'assets/img/icons/card/delete.svg' %}" alt="delete.svg" /></a>
+                           </div>
                         </div>
                     </div>
     {% endfor %}
                     <div class="Cart-total">
                         <div class="Cart-block Cart-block_total">
                             <strong class="Cart-title">Итого:
-                            </strong><span class="Cart-price">200.99$</span>
+                            </strong><span class="Cart-price">{{ total_price }}</span>
                         </div>
                         <div class="Cart-block"><a class="btn btn_success btn_lg" href="../../../orders/templates/orders/order.html">Оформить заказ</a>
                         </div>

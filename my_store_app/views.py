@@ -26,7 +26,6 @@ from cart.forms import CartAddProductForm
 
 
 def register_view(request):
-
     """Функция регистрации нового пользователя"""
 
     if request.method == 'POST':
@@ -48,14 +47,12 @@ def register_view(request):
 
 
 class AuthorLogoutView(LogoutView):
-
     """Выход из учетной записи"""
 
     next_page = '/'
 
 
 class Login(LoginView):
-
     """Вход в учетную запись"""
 
     def form_valid(self, form):
@@ -63,7 +60,6 @@ class Login(LoginView):
 
 
 class CategoryView(View):
-
     """Формирование списка категорий, популярных товаров,
      лимитированных, баннеров и путей до изображений этих категорий"""
 
@@ -73,14 +69,13 @@ class CategoryView(View):
         for image in date:
             file = os.path.basename(str(image.image))
             file_name_list.append(file)
-        print(file_name_list)
         category = zip(date, file_name_list)
         popular_product = Product.objects.all().order_by('-reviews')[:8]
         limited_edition = Product.objects.filter(free_delivery=False)
         banners = Product.objects.all().order_by('-rating')
         return render(request, 'my_store_app/index.html', {'popular_product': popular_product,
-                                              'limited_edition': limited_edition,
-                                              'banners': banners})
+                                                           'limited_edition': limited_edition,
+                                                           'banners': banners})
 
 
 class AccountView(View):
@@ -101,7 +96,10 @@ class HistoryView(View):
 class CartView(View):
     def get(self, request: HttpRequest, **kwargs):
         cart = Cart.objects.filter(username=kwargs['pk'])
-        return render(request, 'cart/cart.html', {'cart': cart})
+        total_price = 0
+        for product in cart:
+            total_price += product.product.price * product.quantity
+        return render(request, 'cart/cart.html', {'total_price': total_price})
 
 
 def product_detail(request, id, slug):
@@ -111,4 +109,4 @@ def product_detail(request, id, slug):
                                 available=True)
     cart_product_form = CartAddProductForm()
     return render(request, 'products/product.html', {'product': product,
-                                                        'cart_product_form': cart_product_form})
+                                                     'cart_product_form': cart_product_form})
