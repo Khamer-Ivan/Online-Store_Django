@@ -7,7 +7,8 @@
         <div class="Middle Middle_top">
             <div class="Section">
                 <div class="wrap">
-                    <form class="form Cart" action="#" method="post">
+                    <form class="form" action="{% url 'cart:update_product' id=product.pk %}" method="post">
+                    {% csrf_token %}
                         <div class="Cart-product">
 
                             <div class="Cart-block Cart-block_row">
@@ -39,21 +40,21 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="Cart-block Cart-block_delete"><a class="Amount" href="{% url 'cart:update_product' id=product.pk %}">Обновить</a></div>
+                            <div class="Cart-block Cart-block_delete"><button type="submit" class="ProductCard-tags">666</button></div>
                            <div class="Cart-block Cart-block_delete"><a class="Cart-delete" href="{% url 'cart:delete_product' id=product.pk %}"><img src="{% static 'assets/img/icons/card/delete.svg' %}" alt="delete.svg" /></a>
                            </div>
                         </div>
-                    </div>
+                        </div>
+                    </form>
     {% endfor %}
                     <div class="Cart-total">
                         <div class="Cart-block Cart-block_total">
                             <strong class="Cart-title">Итого:
                             </strong><span class="Cart-price">{{ total_price }}</span>
                         </div>
-                        <div class="Cart-block"><a class="btn btn_success btn_lg" href="../../../orders/templates/orders/order.html">Оформить заказ</a>
+                        <div class="Cart-block"><a class="btn btn_success btn_lg" href="{% url 'orders:order' %}">Оформить заказ</a>
                         </div>
                     </div>
-                </form>
             </div>
         </div>
     </div>

@@ -1,6 +1,8 @@
 {% extends "my_store_app/base.html" %}
 {% load static %}
+{% load products_tags %}
 {% block content %}
+    {% order_user pk=request.user.pk as user %}
     <div class="Middle Middle_top">
 
         <div class="Section Section_column Section_columnLeft">
@@ -28,7 +30,8 @@
                 </div>
                 <div class="Section-content">
                     <div class="Profile">
-                        <form class="form Profile-form" action="#" method="post">
+                        <form class="form Profile-form" action="{% url 'my_store_app:avatar' id=request.user.pk %}" method="post">
+                            {% csrf_token %}
                             <div class="row">
                                 <div class="row-block">
                                     <div class="form-group">
@@ -36,7 +39,7 @@
                                         </label>
                                         <div class="Profile-avatar Profile-avatar_noimg">
 
-                                            <label class="Profile-fileLabel" for="avatar"><img src="assets/img/icons/upload.png" alt="#.png" />Загрузить фото
+                                            <label class="Profile-fileLabel" for="avatar"><img src="{% static 'assets/img/paw_tastic_dog_sticker_fantastic_icon_249889_1_Ao7fyBn.png' %}" alt="#.png" />Загрузить фото
                                             </label>
                                             
                                             <input class="Profile-file form-input" id="avatar" name="avatar" type="file" data-validate="onlyImgAvatar" />
@@ -45,19 +48,19 @@
                                     <div class="form-group">
                                         <label class="form-label" for="name">ФИО
                                         </label>
-                                        <input class="form-input" id="name" name="name" type="text" value="" data-validate="require" />
+                                        <input class="form-input" id="name" name="name" type="text" value="{{ user.full_name }}" data-validate="require" />
                                     </div>
                                 </div>
                                 <div class="row-block">
                                     <div class="form-group">
                                         <label class="form-label" for="phone">Телефон
                                         </label>
-                                        <input class="form-input" id="phone" name="phone" type="text" value="+70000000000" />
+                                        <input class="form-input" id="phone" name="phone" type="text" value="{{ user.phone }}" />
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label" for="mail">E-mail
                                         </label>
-                                        <input class="form-input" id="mail" name="mail" type="text" value="send@test.test" data-validate="require" />
+                                        <input class="form-input" id="mail" name="mail" type="text" value="{{ user.email }}" data-validate="require" />
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label" for="password">Пароль

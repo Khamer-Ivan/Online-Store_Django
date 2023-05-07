@@ -15,11 +15,8 @@ def delete_product(request: HttpRequest, **kwargs):
 def update_product(request: HttpRequest, **kwargs):
     product = Cart.objects.get(id=kwargs['id'])
     count = request.POST.get('amount')
-    print('=' * 50)
-    print(count)
-    print('=' * 50)
+
     Cart.objects.filter(id=kwargs['id']).update(
-        quantity=8,
+        quantity=count,
     )
     return redirect(request.META['HTTP_REFERER'])
-

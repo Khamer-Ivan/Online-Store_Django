@@ -5,7 +5,7 @@ from django.views.generic import ListView, DetailView
 from django import template
 
 from cart.forms import CartAddProductForm
-from my_store_app.models import Product, CategoryProduct, TagsFile, Cart
+from my_store_app.models import Product, CategoryProduct, TagsFile, Cart, Profile
 
 register = template.Library()
 
@@ -61,3 +61,4 @@ class TagView(DetailView):
     template_name = 'products/tag_page.html'
     model = TagsFile
     context_object_name = 'tags'
+

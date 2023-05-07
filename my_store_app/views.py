@@ -110,3 +110,13 @@ def product_detail(request, id, slug):
     cart_product_form = CartAddProductForm()
     return render(request, 'products/product.html', {'product': product,
                                                      'cart_product_form': cart_product_form})
+
+
+def avatar(request: HttpRequest, **kwargs):
+    user = Profile.objects.get(user=kwargs['id'])
+    user_avatar = request.POST.get('avatar')
+
+    Profile.objects.filter(user=kwargs['id']).update(
+        avatar=user_avatar,
+    )
+    return redirect(request.META['HTTP_REFERER'])

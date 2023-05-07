@@ -1,6 +1,6 @@
 from django import template
 
-from my_store_app.models import Product, CategoryProduct, TagsFile, Cart
+from my_store_app.models import Product, CategoryProduct, TagsFile, Cart, Profile
 
 register = template.Library()
 
@@ -40,7 +40,9 @@ def cart_total_price(**kwargs):
     total_price = 0
     for product in cart:
         total_price += product.product.price * product.quantity
-    return total_price
+
+    answer = f'{total_price:,}'
+    return answer
 
 
 @register.simple_tag()
@@ -56,3 +58,9 @@ def cart_view(**kwargs):
         return 666
 
     return kwargs['pk']
+
+
+@register.simple_tag()
+def order_user(**kwargs):
+    user = Profile.objects.get(user=kwargs['pk'])
+    return user

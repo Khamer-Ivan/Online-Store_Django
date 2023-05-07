@@ -1,6 +1,8 @@
 {% extends "my_store_app/base.html" %}
 {% load static %}
+{% load products_tags %}
 {% block content %}
+    {% order_user pk=request.user.pk as user %}
     <div class="Middle Middle_top">
         <div class="Section Section_column Section_columnRight Section_columnWide Order">
             <div class="wrap">
@@ -43,17 +45,17 @@
                                     <div class="form-group">
                                         <label class="form-label" for="name">ФИО
                                         </label>
-                                        <input class="form-input" id="name" name="name" type="text" value="Иванов Иван Иванович" />
+                                        <input class="form-input" id="name" name="name" type="text" value="{{ user.full_name }}" />
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label" for="phone">Телефон
                                         </label>
-                                        <input class="form-input" id="phone" name="phone" type="text" value="+70000000000" />
+                                        <input class="form-input" id="phone" name="phone" type="text" value="{{ user.phone }}" />
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label" for="mail">E-mail
                                         </label>
-                                        <input class="form-input" id="mail" name="mail" type="text" value="" data-validate="require" />
+                                        <input class="form-input" id="mail" name="mail" type="text" value="{{ user.email }}" data-validate="require" />
                                     </div>
                                 </div>
                                 <div class="row-block">
