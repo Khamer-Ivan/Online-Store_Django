@@ -1,0 +1,33 @@
+{% extends 'my_store_app/base.html' %}
+{% block content %}
+      <div class="Middle Middle_top">
+    <div class="Middle-top">
+      <div class="wrap">
+        <div class="Middle-header">
+          <h1 class="Middle-title">Payment
+          </h1>
+          <ul class="breadcrumbs Middle-breadcrumbs">
+            <li class="breadcrumbs-item"><a href="{% url 'my_store_app:index' %}">home</a>
+            </li>
+            <li class="breadcrumbs-item breadcrumbs-item_current"><span>Payment</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="Section">
+      <div class="wrap">
+        <div class="ProgressPayment">
+          <div class="ProgressPayment-title">Во время оплаты возникла ошибка
+          </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+      </div>
+    </div>
+  </div>
+{% endblock %}
