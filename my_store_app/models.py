@@ -147,11 +147,11 @@ class OrderHistory(models.Model):  # история покупок пользо�
         verbose_name_plural = 'Истории покупок'
 
     def __str__(self):
-        return self.user_order.name
+        return self.user_order.full_name
 
 
 class Order(models.Model):  # покупка товаров из корзины
-    product_order = models.ForeignKey('Product', on_delete=models.CASCADE, verbose_name='товар')
+    product_order = models.ForeignKey('Product', on_delete=models.CASCADE, verbose_name='товар', related_name='product_order')
     count = models.IntegerField(default=0, verbose_name='колличество  товаров в корзине')
     price = models.IntegerField(default=0, verbose_name='общая стоимость  товаров в корзине')
     date = models.DateField(auto_now_add=True)

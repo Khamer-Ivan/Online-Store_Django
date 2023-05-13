@@ -30,21 +30,13 @@
                                 </ul>
                             </div>
                             <div class="ProductCard-cart">
-                                <div class="ProductCard-cartElement ProductCard-cartElement_amount">
-                                    <div class="Amount Amount_product">
-                                        <button class="Amount-remove" type="button">
-                                        </button>
-                                            <input class="Amount-input form-input" name="amount" type="text" value="1" />
-                                        <button class="Amount-add" type="button">
-                                        </button>
-                                    </div>
-                                </div>
-                                    <p class="ProductCard-price"> {{ product.price }} </p>
+                                <div class="ProductCard-cartElement">
                                     <form method="post">
                                         {{ cart_product_form }}
                                         {% csrf_token %}
-                                        <input type="submit" href="{% url 'products:product' pk=product.pk %}" value="Купить">
+                                        <input type="submit" class="btn btn_primary btn_lg" href="{% url 'products:product' pk=product.pk %}" value="Купить">
                                     </form>
+                                </div>
                                 <div id="modal_open" class="my_modal">
                                     <div class="my_modal-dialog">
                                         <div class="my_modal-content">

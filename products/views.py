@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from django.views.generic import ListView, DetailView
 from django import template
+from django.db import transaction
 
 from cart.forms import CartAddProductForm
 from my_store_app.models import Product, CategoryProduct, TagsFile, Cart, Profile
@@ -36,22 +37,27 @@ class ProductDetail(DetailView):
 def product_detail(request: HttpRequest, **kwargs):
     if request.method == 'POST':
         product = Product.objects.get(id=kwargs['pk'])
-        print(f'PRODUCT: {product.title}, {product.price}')
         basket = Cart.objects.filter(username=request.user.profile, product=product)
-
-        if not basket.exists():
-            Cart.objects.create(
-                username=request.user.profile,
-                product=product,
-                quantity=1
+        with transaction.atomic():
+            count = product.count - 1
+            Product.objects.filter(id=kwargs['pk']).update(
+                count=count
             )
-            return redirect('my_store_app:index')
 
-        else:
-            cart = basket.first()
-            cart.quantity += 1
-            cart.save()
-            return redirect('my_store_app:index')
+            if not basket.exists():
+                Cart.objects.create(
+                    username=request.user.profile,
+                    product=product,
+                    quantity=1
+                )
+                return redirect('my_store_app:index')
+
+            else:
+                cart = basket.first()
+                cart.quantity += 1
+                cart.save()
+                return redirect('my_store_app:index')
+
     else:
         product = Product.objects.get(id=kwargs['pk'])
     return render(request, 'products/product.html', {'product': product})
