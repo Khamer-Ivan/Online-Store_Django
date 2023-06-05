@@ -6,7 +6,10 @@ from orders.views import (OrderView,
                           payment_success,
                           payment_not_success,
                           PaymentControlView,
-                          )
+                          order_step_1,
+                          order_step_2,
+                          order_step_3,
+                          order_step_4,)
 
 app_name = 'orders'
 
@@ -16,5 +19,9 @@ urlpatterns = [
     path('payment_progress/', PaymentProgressView.as_view(), name='payment_progress'),
     path('control/<int:num>', PaymentControlView.as_view(), name='control'),
     path('success/', payment_success, name='success'),
-    path('not_success/', payment_not_success, name='not_success')
+    path('not_success/', payment_not_success, name='not_success'),
+    path('order_step_1/', order_step_1, name='order_step_1'),
+    path('order_step_2/', order_step_2, name='order_step_2'),
+    path('order_step_3/', order_step_3, name='order_step_3'),
+    path('order_step_4/', order_step_4, name='order_step_4'),
 ]

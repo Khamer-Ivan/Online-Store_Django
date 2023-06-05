@@ -35,7 +35,7 @@ class PaymentControlView(View):
             return redirect('orders:not_success')
 
 
-def payment_success(request):
+def payment_success(request: HttpRequest):
     """
     Представление удачной оплаты
 
@@ -44,10 +44,26 @@ def payment_success(request):
     return render(request, 'orders/success.html')
 
 
-def payment_not_success(request):
+def payment_not_success(request: HttpRequest):
     """
     Представление неудачной оплаты
 
     ::Страница: Оплата заказа
     """
     return render(request, 'orders/not_success.html')
+
+
+def order_step_1(request: HttpRequest):
+    return render(request, 'orders/order_step_1.html')
+
+
+def order_step_2(request: HttpRequest):
+    return render(request, 'orders/order_step_2.html')
+
+
+def order_step_3(request: HttpRequest):
+    return render(request, 'orders/order_step_3.html')
+
+
+def order_step_4(request: HttpRequest):
+    return render(request, 'orders/order_step_4.html')

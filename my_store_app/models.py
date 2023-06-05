@@ -151,6 +151,29 @@ class OrderHistory(models.Model):  # история покупок пользо�
 
 
 class Order(models.Model):  # покупка товаров из корзины
+
+    DELIVERY_CHOICES = [
+        ('reg', 'Regular'),
+        ('exp', 'Express')
+    ]
+
+    PAYMENT_CHOICES = [
+        ('card', 'Bank Card'),
+        ('cash', 'From random account'),
+    ]
+
+    customer = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, related_name='orders', verbose_name='customer')
+    fio = models.CharField(max_length=100, null=True, blank=True, verbose_name='name and lastname')
+    phone = models.CharField(max_length=16, null=True, blank=True, verbose_name='phone number')
+    email = models.EmailField(null=True, blank=True, verbose_name='email')
+    delivery = models.CharField(max_length=3, choices=DELIVERY_CHOICES, default='reg', verbose_name='delivery')
+    payment_method = models.CharField(max_length=4, choices=PAYMENT_CHOICES, default='card', verbose_name='payment method')
+    city = models.CharField(max_length=25, null=True, blank=True, verbose_name='city')
+    address = models.TextField(max_length=255, null=True, blank=True, verbose_name='address')
+    in_order = models.BooleanField(default=False, verbose_name='in order')
+    paid = models.BooleanField(default=False, verbose_name='order is payed')
+    braintree_id = models.CharField(max_length=150, blank=True, verbose_name='transaction id')
+    delivery_cost = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name='delivery cost')
     product_order = models.ForeignKey('Product', on_delete=models.CASCADE, verbose_name='товар', related_name='product_order')
     count = models.IntegerField(default=0, verbose_name='колличество  товаров в корзине')
     price = models.IntegerField(default=0, verbose_name='общая стоимость  товаров в корзине')
