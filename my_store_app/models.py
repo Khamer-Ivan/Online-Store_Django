@@ -153,16 +153,16 @@ class OrderHistory(models.Model):  # история покупок пользо�
 class Order(models.Model):  # покупка товаров из корзины
 
     DELIVERY_CHOICES = [
-        ('reg', 'Regular'),
-        ('exp', 'Express')
+        ('reg', 'Обычная доставка'),
+        ('exp', 'Экспресс доставка')
     ]
 
     PAYMENT_CHOICES = [
-        ('card', 'Bank Card'),
-        ('cash', 'From random account'),
+        ('card', 'Онлайн картой'),
+        ('cash', 'Онлайн со случайного чужого счета'),
     ]
 
-    customer = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, related_name='orders', verbose_name='customer')
+    customer = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='orders', verbose_name='customer')
     fio = models.CharField(max_length=100, null=True, blank=True, verbose_name='name and lastname')
     phone = models.CharField(max_length=16, null=True, blank=True, verbose_name='phone number')
     email = models.EmailField(null=True, blank=True, verbose_name='email')
@@ -174,7 +174,7 @@ class Order(models.Model):  # покупка товаров из корзины
     paid = models.BooleanField(default=False, verbose_name='order is payed')
     braintree_id = models.CharField(max_length=150, blank=True, verbose_name='transaction id')
     delivery_cost = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name='delivery cost')
-    product_order = models.ForeignKey('Product', on_delete=models.CASCADE, verbose_name='товар', related_name='product_order')
+    product_order = models.ForeignKey('Product', on_delete=models.CASCADE, null=True, verbose_name='товар', related_name='product_order')
     count = models.IntegerField(default=0, verbose_name='колличество  товаров в корзине')
     price = models.IntegerField(default=0, verbose_name='общая стоимость  товаров в корзине')
     date = models.DateField(auto_now_add=True)
@@ -212,3 +212,10 @@ class Payment(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class ProductInOrder(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, unique=False, related_name='user')
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True, blank=True, unique=False, related_name='order')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True, unique=False, related_name='prod')
+    quantity = models.PositiveIntegerField(default=0, null=True)

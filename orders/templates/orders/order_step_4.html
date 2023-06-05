@@ -48,19 +48,19 @@
                                             <div class="Order-info">
                                                 <div class="Order-infoType">ФИО:
                                                 </div>
-                                                <div class="Order-infoContent">{{ user.full_name }}
+                                                <div class="Order-infoContent">{{ order.fio }}
                                                 </div>
                                             </div>
                                             <div class="Order-info">
                                                 <div class="Order-infoType">Телефон:
                                                 </div>
-                                                <div class="Order-infoContent">+{{ user.phone }}
+                                                <div class="Order-infoContent">+{{ order.phone }}
                                                 </div>
                                             </div>
                                             <div class="Order-info">
                                                 <div class="Order-infoType">E-mail:
                                                 </div>
-                                                <div class="Order-infoContent">{{ user.email }}
+                                                <div class="Order-infoContent">{{ order.email }}
                                                 </div>
                                             </div>
                                         </div>
@@ -68,25 +68,25 @@
                                             <div class="Order-info Order-info_delivery">
                                                 <div class="Order-infoType">Тип доставки:
                                                 </div>
-                                                <div class="Order-infoContent">Обычная доставка
+                                                <div class="Order-infoContent">{{ order.delivery }}
                                                 </div>
                                             </div>
                                             <div class="Order-info">
                                                 <div class="Order-infoType">Город:
                                                 </div>
-                                                <div class="Order-infoContent">Москва
+                                                <div class="Order-infoContent">{{ order.city }}
                                                 </div>
                                             </div>
                                             <div class="Order-info">
                                                 <div class="Order-infoType">Адрес:
                                                 </div>
-                                                <div class="Order-infoContent">Ул. Академика Арцимовича, д. 10, кв. 10
+                                                <div class="Order-infoContent">{{ order.address }}
                                                 </div>
                                             </div>
                                             <div class="Order-info Order-info_pay">
                                                 <div class="Order-infoType">Оплата:
                                                 </div>
-                                                <div class="Order-infoContent">Онлайн картой
+                                                <div class="Order-infoContent">{{ order.payment_method }}
                                                 </div>
                                             </div>
                                         </div>
@@ -95,22 +95,22 @@
                                 {% cart_list pk=request.user.profile.pk as cart %}
 
                                 <div class="Cart Cart_order">
-                                    {% for product in cart %}
+                                    {% for element in cart %}
                                         <div class="Cart-product">
                                             <div class="Cart-block Cart-block_row">
-                                                <div class="Cart-block Cart-block_pict"><a class="Cart-pict" href="{% url 'products:product' pk=product.product.pk %}"><img class="Cart-img" src="{{ product.product.product_picture.url }}" alt="card.jpg" /></a>
+                                                <div class="Cart-block Cart-block_pict"><a class="Cart-pict" href="{% url 'products:product' pk=element.product.pk %}"><img class="Cart-img" src="{{ element.product.product_picture.url }}" alt="card.jpg" /></a>
                                                 </div>
-                                                <div class="Cart-block Cart-block_info"><a class="Cart-title" href="{% url 'products:product' pk=product.product.pk %}">{{ product.product.title }}</a>
-                                                    <div class="Cart-desc">{{ product.product.description }}
+                                                <div class="Cart-block Cart-block_info"><a class="Cart-title" href="{% url 'products:product' pk=element.product.pk %}">{{ element.product.title }}</a>
+                                                    <div class="Cart-desc">{{ element.product.description }}
                                                     </div>
                                                 </div>
                                                 <div class="Cart-block Cart-block_price">
-                                                    <div class="Cart-price">{{ product.product.price }}
+                                                    <div class="Cart-price">{{ element.product.price }}
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="Cart-block Cart-block_row">
-                                                <div class="Cart-block Cart-block_amount">{{ product.quantity }} шт.
+                                                <div class="Cart-block Cart-block_amount">{{ element.quantity }} шт.
                                                 </div>
                                             </div>
                                         </div>

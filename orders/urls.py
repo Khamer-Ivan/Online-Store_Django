@@ -9,7 +9,7 @@ from orders.views import (OrderView,
                           order_step_1,
                           order_step_2,
                           order_step_3,
-                          order_step_4,)
+                          OrderStepFour,)
 
 app_name = 'orders'
 
@@ -23,5 +23,5 @@ urlpatterns = [
     path('order_step_1/', order_step_1, name='order_step_1'),
     path('order_step_2/', order_step_2, name='order_step_2'),
     path('order_step_3/', order_step_3, name='order_step_3'),
-    path('order_step_4/', order_step_4, name='order_step_4'),
+    path('order_step_4/', OrderStepFour.as_view(), name='order_step_4'),
 ]

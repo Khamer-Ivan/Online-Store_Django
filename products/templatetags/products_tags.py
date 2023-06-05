@@ -1,6 +1,6 @@
 from django import template
 
-from my_store_app.models import Product, CategoryProduct, TagsFile, Cart, Profile
+from my_store_app.models import Product, CategoryProduct, TagsFile, Cart, Profile, ProductInOrder
 
 register = template.Library()
 
@@ -64,3 +64,11 @@ def cart_view(**kwargs):
 def order_user(**kwargs):
     user = Profile.objects.get(user=kwargs['pk'])
     return user
+
+
+@register.simple_tag()
+def product_in_order(**kwargs):
+    if not kwargs['pk']:
+        return {}
+    return ProductInOrder.objects.filter(user=kwargs['pk'])
+

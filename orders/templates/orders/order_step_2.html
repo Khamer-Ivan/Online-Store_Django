@@ -33,7 +33,7 @@
 
 
                 <div class="Section-content">
-                    <form class="form" action="{% url 'orders:order_step_3' %}" method="post">
+                    <form class="form" action="{% url 'orders:order_step_2' %}" method="post">
                     {% csrf_token %}
                         <div class="Order-block Order-block_OPEN" id="step2">
                             <header class="Section-header Section-header_sm">
@@ -41,16 +41,7 @@
                                 </h2>
                             </header>
                             <div class="form-group">
-                                <div>
-                                    <label class="toggle">
-                                        <input type="radio" name="delivery" value="ordinary" checked="checked" /><span class="toggle-box"></span><span class="toggle-text">Обычная доставка</span>
-                                    </label>
-                                </div>
-                                <div>
-                                    <label class="toggle">
-                                        <input type="radio" name="delivery" value="express" /><span class="toggle-box"></span><span class="toggle-text">Экспресс доставка</span>
-                                    </label>
-                                </div>
+                                {{ form.delivery }}
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="city">Город

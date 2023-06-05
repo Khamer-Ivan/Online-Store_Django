@@ -33,7 +33,7 @@
 
 
                 <div class="Section-content">
-                    <form class="form" action="{% url 'orders:order_step_2' %}" method="post">
+                    <form class="form" action="{% url 'orders:order_step_1' %}" method="post">
                     {% csrf_token %}
                         <div class="Order-block Order-block_OPEN" id="step1">
                             <header class="Section-header Section-header_sm">
@@ -45,7 +45,7 @@
                                     <div class="form-group">
                                         <label class="form-label" for="name">ФИО
                                         </label>
-                                        <input class="form-input" id="name" name="name" type="text" value="{{ user.full_name }}" />
+                                        <input class="form-input" id="fio" name="fio" type="text" value="{{ user.full_name }}" />
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label" for="phone">Телефон
@@ -55,7 +55,7 @@
                                     <div class="form-group">
                                         <label class="form-label" for="mail">E-mail
                                         </label>
-                                        <input class="form-input" id="mail" name="mail" type="text" value="{{ user.email }}" data-validate="require" />
+                                        <input class="form-input" id="email" name="email" type="text" value="{{ user.email }}" data-validate="require" />
                                     </div>
                                 </div>
                                 <div class="row-block">
@@ -75,7 +75,6 @@
                             </div>
                             <div class="Order-footer"><button type="submit" class="btn btn_primary btn_lg">Дальше</button>
                             </div>
-                        </div>
                     </form>
                 </div>
             </div>
