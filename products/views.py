@@ -6,7 +6,8 @@ from django import template
 from django.db import transaction
 
 from cart.forms import CartAddProductForm
-from my_store_app.models import Product, CategoryProduct, TagsFile, Cart, Profile
+from my_store_app.models import Product, CategoryProduct, TagsFile, Cart, Profile, Reviews
+from .forms import ReviewsForm
 
 register = template.Library()
 
@@ -60,6 +61,8 @@ def product_detail(request: HttpRequest, **kwargs):
 
     else:
         product = Product.objects.get(id=kwargs['pk'])
+        product.reviews += 1
+        product.save()
     return render(request, 'products/product.html', {'product': product})
 
 
@@ -68,3 +71,19 @@ class TagView(DetailView):
     model = TagsFile
     context_object_name = 'tags'
 
+
+def product_reviews(request: HttpRequest, **kwargs):
+    if request.method == 'POST':
+        form = ReviewsForm(request.POST)
+
+        if form.is_valid():
+            Reviews.objects.create(
+                product=Product.objects.get(id=kwargs['pk']),
+                author=Profile.objects.get(user=request.user.id),
+                text=form.cleaned_data['text']
+            )
+            return redirect(request.META['HTTP_REFERER'])
+
+    else:
+        form = ReviewsForm()
+        return redirect('products:product')

@@ -1,6 +1,6 @@
 from django import template
 
-from my_store_app.models import Product, CategoryProduct, TagsFile, Cart, Profile, ProductInOrder
+from my_store_app.models import Product, CategoryProduct, TagsFile, Cart, Profile, ProductInOrder, Reviews
 
 register = template.Library()
 
@@ -80,3 +80,21 @@ def product_in_order_2(**kwargs):
     return ProductInOrder.objects.filter(order=kwargs['pk'])
 
 
+@register.simple_tag()
+def all_reviews(**kwargs):
+    if not kwargs['pk']:
+        return {}
+    return Reviews.objects.filter(product=kwargs['pk'])
+
+
+@register.simple_tag()
+def reviews_count(**kwargs):
+    if not kwargs['pk']:
+        return {}
+    products = Reviews.objects.filter(product=kwargs['pk'])
+
+    count = 0
+    for product in products:
+        count += 1
+
+    return count

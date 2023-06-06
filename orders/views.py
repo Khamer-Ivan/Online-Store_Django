@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import DetailView
 
-from my_store_app.models import Order, Cart, ProductInOrder
+from my_store_app.models import Order, Cart, ProductInOrder, Product
 from .forms import PaymentForm, OrderStepOneForm, OrderStepTwoForm, OrderStepThreeForm
 
 
@@ -47,6 +47,9 @@ class PaymentControlView(View):
                     order=order,
                     quantity=product.quantity
                 )
+                product_rating = Product.objects.get(id=product.product.id)
+                product_rating.rating += product.quantity
+                product_rating.save()
 
             cart.delete()
 

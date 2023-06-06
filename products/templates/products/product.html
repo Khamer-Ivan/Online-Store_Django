@@ -1,5 +1,6 @@
 {% extends "my_store_app/base.html" %}
 {% load static %}
+{% load products_tags %}
 {% block content %}
     <div class="Middle Middle_top">
         <div class="Section">
@@ -62,7 +63,8 @@
                         </div>
                     </div>
                     <div class="Tabs Tabs_default">
-                        <div class="Tabs-links"><a class="Tabs-link_ACTIVE Tabs-link" href="#description"><span>Описание</span></a><a class="Tabs-link" href="#addit"><span>Характеристика</span></a><a class="Tabs-link" href="#reviews"><span>Отзывы (3)</span></a>
+                        {% reviews_count pk=product.pk as count %}
+                        <div class="Tabs-links"><a class="Tabs-link_ACTIVE Tabs-link" href="#description"><span>Описание</span></a><a class="Tabs-link" href="#addit"><span>Характеристика</span></a><a class="Tabs-link" href="#reviews"><span>Отзывы ({{ count }})</span></a>
                         </div>
                         <div class="Tabs-wrap">
                             <div class="Tabs-block" id="description">
@@ -131,35 +133,42 @@
                             </div>
                             <div class="Tabs-block" id="reviews">
                                 <header class="Section-header">
-                                    <h3 class="Section-title">1 отзыв
+                                    <h3 class="Section-title">Количество отзывов: {{ count }}
                                     </h3>
                                 </header>
-                                <div class="Comments">
-                                    <div class="Comment">
-                                        <div class="Comment-column Comment-column_pict">
-                                            <div class="Comment-avatar">
-                                            </div>
-                                        </div>
-                                        <div class="Comment-column">
-                                            <header class="Comment-header">
-                                                <div>
-                                                    <strong class="Comment-title">Александра Бровина
-                                                    </strong><span class="Comment-date">Декабрь 25&#32;&#32;/&#32;&#32;2017&#32;&#32;/&#32;&#32;22:50</span>
+                                {% all_reviews pk=product.pk as reviews %}
+                                {% for review in reviews %}
+
+                                    <div class="Comments">
+                                        <div class="Comment">
+                                            <div class="Comment-column Comment-column_pict">
+                                                <div class="Comment-avatar">
                                                 </div>
-                                            </header>
-                                            <div class="Comment-content">Какой-то важный текст
+                                            </div>
+                                            <div class="Comment-column">
+                                                <header class="Comment-header">
+                                                    <div>
+                                                        <strong class="Comment-title">{{ review.author.full_name }}
+                                                        </strong><span class="Comment-date">{{ review.create_at }}</span>
+                                                    </div>
+                                                </header>
+                                                <div class="Comment-content">{{ review.text }}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+
+                                {% endfor %}
                                 <header class="Section-header Section-header_product">
                                     <h3 class="Section-title">Добавить отзыв
                                     </h3>
                                 </header>
                                 <div class="Tabs-addComment">
-                                    <form class="form" action="#" method="post">
+                                    <form class="form" action="{% url 'products:product_reviews' pk=product.pk %}" method="post">
+                                        {% csrf_token %}
                                         <div class="form-group">
-                                            <textarea class="form-textarea" name="review" id="review" placeholder="Отзыв"></textarea>
+                                            <label class="form-label" for="text"></label>
+                                            <textarea class="form-textarea" name="text" id="text" type="text" placeholder="Отзыв"></textarea>
                                         </div>
 
                                         <div class="form-group">
