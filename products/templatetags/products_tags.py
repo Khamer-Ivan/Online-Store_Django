@@ -72,3 +72,11 @@ def product_in_order(**kwargs):
         return {}
     return ProductInOrder.objects.filter(user=kwargs['pk'])
 
+
+@register.simple_tag()
+def product_in_order_2(**kwargs):
+    if not kwargs['pk']:
+        return {}
+    return ProductInOrder.objects.filter(order=kwargs['pk'])
+
+

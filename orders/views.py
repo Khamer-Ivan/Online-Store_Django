@@ -1,6 +1,7 @@
 from django.http import HttpRequest
 from django.shortcuts import render, redirect
 from django.views import View
+from django.views.generic import DetailView
 
 from my_store_app.models import Order, Cart, ProductInOrder
 from .forms import PaymentForm, OrderStepOneForm, OrderStepTwoForm, OrderStepThreeForm
@@ -14,7 +15,11 @@ class OrderView(View):
 class PaymentView(View):
     def post(self, request: HttpRequest):
         form = PaymentForm(request.POST)
-        return render(request, 'orders/payment.html', {'form': form})
+        order = Order.objects.filter(customer=request.user, in_order=True).last()
+        if order.payment_method == 'card':
+            return render(request, 'orders/payment.html', {'form': form})
+        else:
+            return render(request, 'orders/paymentsomeone.html', {'form': form})
 
 
 class PaymentProgressView(View):
@@ -33,17 +38,16 @@ class PaymentControlView(View):
         if int(num) != 0 and int(num) % 2 == 0:
 
             order = Order.objects.filter(customer=request.user, in_order=True).last()
-
             cart = Cart.objects.filter(username=request.user.profile)
+
             for product in cart:
-                order.price += product.product.price * product.quantity
                 ProductInOrder.objects.create(
                     user=request.user,
-                    order=order,
                     product=product.product,
+                    order=order,
                     quantity=product.quantity
                 )
-            order.save()
+
             cart.delete()
 
             return redirect('orders:success')
@@ -129,6 +133,17 @@ def order_step_3(request: HttpRequest):
     if request.method == 'POST':
         form = OrderStepThreeForm(request.POST)
         order = Order.objects.get(customer=request.user, in_order=False)
+        cart = Cart.objects.filter(username=request.user.profile)
+        for product in cart:
+            order.price += product.quantity * product.product.price
+
+        if order.delivery == 'exp':
+            order.price += 500
+            order.delivery_cost = 500.00
+        elif order.price < 2000:
+            order.price += 200
+            order.delivery_cost = 200.00
+
         if form.is_valid():
             payment_method = form.cleaned_data['payment_method']
 
@@ -158,3 +173,14 @@ class OrderStepFour(View):
 
         else:
             return redirect('profiles:login')
+
+
+class OrderHistory(View):
+    def get(self, request: HttpRequest):
+        order = Order.objects.filter(customer=request.user, in_order=True)
+        return render(request, 'orders/historyorder.html', {'order': order})
+
+
+def order_detail(request: HttpRequest, **kwargs):
+    order = Order.objects.get(customer=request.user, id=kwargs['pk'])
+    return render(request, 'orders/oneorder.html', {'order': order})

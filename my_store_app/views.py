@@ -88,11 +88,6 @@ class ProfileView(View):
         return render(request, 'my_store_app/profile.html')
 
 
-class HistoryView(View):
-    def get(self, request: HttpRequest):
-        return render(request, 'my_store_app/historyorder.html')
-
-
 class CartView(View):
     def get(self, request: HttpRequest, **kwargs):
         cart = Cart.objects.filter(username=kwargs['pk'])

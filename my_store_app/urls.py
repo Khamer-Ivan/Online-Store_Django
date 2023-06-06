@@ -6,7 +6,6 @@ from my_store_app.views import (CategoryView,
                                 Login,
                                 AccountView,
                                 ProfileView,
-                                HistoryView,
                                 CartView,
                                 avatar,)
 from django.conf import settings
@@ -23,7 +22,6 @@ urlpatterns = [
     path('email/', views.PasswordResetView.as_view(), name='email'),
     path('account/', AccountView.as_view(), name='account'),
     path('profile/', ProfileView.as_view(), name='profile'),
-    path('history/', HistoryView.as_view(), name='history'),
     path('cart/<int:pk>', CartView.as_view(), name='cart'),
     path('avatar/<int:id>', avatar, name='avatar'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
