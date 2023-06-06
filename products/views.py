@@ -1,4 +1,4 @@
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from django.views.generic import ListView, DetailView
@@ -75,15 +75,16 @@ class TagView(DetailView):
 def product_reviews(request: HttpRequest, **kwargs):
     if request.method == 'POST':
         form = ReviewsForm(request.POST)
-
-        if form.is_valid():
-            Reviews.objects.create(
-                product=Product.objects.get(id=kwargs['pk']),
-                author=Profile.objects.get(user=request.user.id),
-                text=form.cleaned_data['text']
-            )
-            return redirect(request.META['HTTP_REFERER'])
-
+        if request.user.is_authenticated:
+            if form.is_valid():
+                Reviews.objects.create(
+                    product=Product.objects.get(id=kwargs['pk']),
+                    author=Profile.objects.get(user=request.user.id),
+                    text=form.cleaned_data['text']
+                )
+                return redirect(request.META['HTTP_REFERER'])
+        else:
+            return redirect('my_store_app:login')
     else:
         form = ReviewsForm()
         return redirect('products:product')

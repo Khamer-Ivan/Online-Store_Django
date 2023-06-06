@@ -98,3 +98,8 @@ def reviews_count(**kwargs):
         count += 1
 
     return count
+
+
+@register.simple_tag()
+def limited_product():
+    return Product.objects.filter(limited_edition=1)

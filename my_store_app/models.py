@@ -73,6 +73,7 @@ class Product(models.Model):  # товар
     rating = models.IntegerField(default=0, verbose_name='счетчик покупок данного товара')
     reviews = models.IntegerField(default=0, verbose_name='счетчик просмотров данного товара')
     tags = models.ManyToManyField('TagsFile', related_name='tags')
+    limited_edition = models.BooleanField(default=False, null=True)
 
     class Meta:
         verbose_name = 'Товар'
