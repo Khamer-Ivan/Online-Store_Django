@@ -1,11 +1,10 @@
-from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpRequest
+from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import ListView, DetailView
 from django import template
 from django.db import transaction
 
-from cart.forms import CartAddProductForm
 from my_store_app.models import Product, CategoryProduct, TagsFile, Cart, Profile, Reviews
 from .forms import ReviewsForm, QueryForm
 
@@ -13,12 +12,18 @@ register = template.Library()
 
 
 class CatalogView(ListView):
+
+    """Представление всех товаров в магазине"""
+
     model = Product
     context_object_name = 'catalog'
     template_name = 'products/catalog.html'
 
 
 def catalog_product(request: HttpRequest):
+
+    """Представление поиска товаров через поисковую строку"""
+
     if request.method == 'POST':
         form = QueryForm(request.POST)
         if form.is_valid():
@@ -27,23 +32,18 @@ def catalog_product(request: HttpRequest):
 
 
 class CategoryView(DetailView):
+
+    """Представление всех категорий товаров"""
+
     template_name = 'products/category.html'
     model = CategoryProduct
     context_object_name = 'category'
 
 
-class ProductView(View):
-    def get(self, request: HttpRequest):
-        return render(request, 'products/product.html')
-
-
-class ProductDetail(DetailView):
-    template_name = 'products/product.html'
-    model = Product
-    context_object_name = 'product'
-
-
 def product_detail(request: HttpRequest, **kwargs):
+
+    """Детальное представление товара"""
+
     if request.method == 'POST':
         product = Product.objects.get(id=kwargs['pk'])
         basket = Cart.objects.filter(username=request.user.profile, product=product)
@@ -75,12 +75,18 @@ def product_detail(request: HttpRequest, **kwargs):
 
 
 class TagView(DetailView):
+
+    """Представление всех тэгов товаров"""
+
     template_name = 'products/tag_page.html'
     model = TagsFile
     context_object_name = 'tags'
 
 
 def product_reviews(request: HttpRequest, **kwargs):
+
+    """Добавление отзывов о товаре"""
+
     if request.method == 'POST':
         form = ReviewsForm(request.POST)
         if request.user.is_authenticated:

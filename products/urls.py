@@ -1,7 +1,6 @@
 from django.urls import path
 
 from products.views import (CatalogView,
-                            ProductView,
                             CategoryView,
                             TagView,
                             product_detail,
