@@ -7,7 +7,7 @@ from django.db import transaction
 
 from cart.forms import CartAddProductForm
 from my_store_app.models import Product, CategoryProduct, TagsFile, Cart, Profile, Reviews
-from .forms import ReviewsForm
+from .forms import ReviewsForm, QueryForm
 
 register = template.Library()
 
@@ -16,6 +16,14 @@ class CatalogView(ListView):
     model = Product
     context_object_name = 'catalog'
     template_name = 'products/catalog.html'
+
+
+def catalog_product(request: HttpRequest):
+    if request.method == 'POST':
+        form = QueryForm(request.POST)
+        if form.is_valid():
+            query = form.cleaned_data['title']
+            return render(request, 'products/catalog_query.html', {'query': query})
 
 
 class CategoryView(DetailView):

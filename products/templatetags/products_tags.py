@@ -103,3 +103,8 @@ def reviews_count(**kwargs):
 @register.simple_tag()
 def limited_product():
     return Product.objects.filter(limited_edition=1)
+
+
+@register.simple_tag()
+def catalog_query(**kwargs):
+    return Product.objects.filter(title__contains=kwargs['pk'])
