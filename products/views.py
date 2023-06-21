@@ -20,6 +20,59 @@ class CatalogView(ListView):
     template_name = 'products/catalog.html'
 
 
+old_sort = 0
+
+
+def all_catalog(request: HttpRequest, **kwargs):
+
+    """Представление всех товаров в магазине с учётом выбора сортировки"""
+
+    global old_sort
+
+    if request.method == 'GET':
+        sort = kwargs['sort']
+
+        if sort == 1:
+            if old_sort == 1:
+                catalog = Product.objects.order_by('rating')
+                old_sort = 0
+            else:
+                catalog = Product.objects.order_by('-rating')
+                old_sort = 1
+            return render(request, 'products/catalog.html', {'catalog': catalog})
+
+        elif sort == 2:
+            if old_sort == 2:
+                catalog = Product.objects.order_by('-price')
+                old_sort = 0
+            else:
+                catalog = Product.objects.order_by('price')
+                old_sort = 2
+            return render(request, 'products/catalog.html', {'catalog': catalog})
+
+        elif sort == 3:
+            if old_sort == 3:
+                catalog = Product.objects.order_by('-reviews')
+                old_sort = 0
+            else:
+                catalog = Product.objects.order_by('reviews')
+                old_sort = 3
+            return render(request, 'products/catalog.html', {'catalog': catalog})
+
+        elif sort == 4:
+            if old_sort == 4:
+                catalog = Product.objects.order_by('date')
+                old_sort = 0
+            else:
+                catalog = Product.objects.order_by('-date')
+                old_sort = 4
+            return render(request, 'products/catalog.html', {'catalog': catalog})
+
+        else:
+            catalog = Product.objects.all()
+            return render(request, 'products/catalog.html', {'catalog': catalog})
+
+
 def catalog_product(request: HttpRequest):
 
     """Представление поиска товаров через поисковую строку"""

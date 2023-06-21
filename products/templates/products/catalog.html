@@ -3,7 +3,7 @@
 {% block content %}
         {% include 'include/catalog_head.html' %}
 
-                        {% for product in catalog.all %}
+                        {% for product in catalog %}
 
                             <div class="Card"><a class="Card-picture" href="{% url 'products:product' pk=product.pk %}"><img src="{{ product.product_picture.url }}" alt="card.jpg" /></a>
                                 <div class="Card-content">

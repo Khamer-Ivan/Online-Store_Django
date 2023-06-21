@@ -60,7 +60,7 @@
                     <div class="Sort">
                         <div class="Sort-title">Сортировать по:
                         </div>
-                        <div class="Sort-variants"><a class="Sort-sortBy Sort-sortBy_dec" href="#">Популярности</a><a class="Sort-sortBy" href="#">Цене</a><a class="Sort-sortBy" href="#">Отзывам</a><a class="Sort-sortBy Sort-sortBy_inc" href="#">Новизне</a>
+                        <div class="Sort-variants"><a class="Sort-sortBy Sort-sortBy_dec" href="{% url 'products:catalog' sort=1 %}">Популярности</a><a class="Sort-sortBy Sort-sortBy_dec" href="{% url 'products:catalog' sort=2 %}">Цене</a><a class="Sort-sortBy" href="{% url 'products:catalog' sort=3 %}">Отзывам</a><a class="Sort-sortBy Sort-sortBy_inc" href="{% url 'products:catalog' sort=4 %}">Новизне</a>
                         </div>
                     </div>
                     <div class="Cards">

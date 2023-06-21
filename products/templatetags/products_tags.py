@@ -108,3 +108,12 @@ def limited_product():
 @register.simple_tag()
 def catalog_query(**kwargs):
     return Product.objects.filter(title__contains=kwargs['pk'])
+
+
+@register.simple_tag()
+def order_by_price():
+    product = Product.objects.all()
+    high_price = product.order_by('price')
+    low_price = product.select_related('-price')
+    answer = {'high_price': high_price, 'low_price': low_price}
+    return answer
