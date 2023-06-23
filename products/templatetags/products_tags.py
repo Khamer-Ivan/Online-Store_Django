@@ -1,4 +1,5 @@
 from django import template
+from django.http import HttpRequest
 
 from my_store_app.models import Product, CategoryProduct, TagsFile, Cart, Profile, ProductInOrder, Reviews
 
@@ -55,7 +56,7 @@ def cart_list(**kwargs):
 @register.simple_tag()
 def cart_view(**kwargs):
     if not kwargs['pk']:
-        return
+        return 666
 
     return kwargs['pk']
 
@@ -135,4 +136,6 @@ def limited_offer():
 def best_rating():
     product = Product.objects.all().order_by('-rating')
     return product.first()
+
+
 
