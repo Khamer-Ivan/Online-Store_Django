@@ -33,39 +33,19 @@ def all_catalog(request: HttpRequest, **kwargs):
         sort = kwargs['sort']
 
         if sort == 1:
-            if old_sort == 1:
-                catalog = Product.objects.order_by('rating')
-                old_sort = 0
-            else:
-                catalog = Product.objects.order_by('-rating')
-                old_sort = 1
+            catalog = Product.objects.order_by('rating')
             return render(request, 'products/catalog.html', {'catalog': catalog})
 
         elif sort == 2:
-            if old_sort == 2:
-                catalog = Product.objects.order_by('-price')
-                old_sort = 0
-            else:
-                catalog = Product.objects.order_by('price')
-                old_sort = 2
+            catalog = Product.objects.order_by('-price')
             return render(request, 'products/catalog.html', {'catalog': catalog})
 
         elif sort == 3:
-            if old_sort == 3:
-                catalog = Product.objects.order_by('-reviews')
-                old_sort = 0
-            else:
-                catalog = Product.objects.order_by('reviews')
-                old_sort = 3
+            catalog = Product.objects.order_by('reviews')
             return render(request, 'products/catalog.html', {'catalog': catalog})
 
         elif sort == 4:
-            if old_sort == 4:
-                catalog = Product.objects.order_by('date')
-                old_sort = 0
-            else:
-                catalog = Product.objects.order_by('-date')
-                old_sort = 4
+            catalog = Product.objects.order_by('date')
             return render(request, 'products/catalog.html', {'catalog': catalog})
 
         else:

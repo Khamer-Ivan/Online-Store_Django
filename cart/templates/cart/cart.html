@@ -3,6 +3,7 @@
 {% load products_tags %}
 {% block content %}
     {% cart_list pk=request.user.profile.pk as cart %}
+    {% cart_total_price pk=request.user.profile.pk as total_price %}
     {% for product in cart %}
         <div class="Middle Middle_top">
             <div class="Section">

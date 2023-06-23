@@ -55,7 +55,7 @@ def cart_list(**kwargs):
 @register.simple_tag()
 def cart_view(**kwargs):
     if not kwargs['pk']:
-        return 666
+        return
 
     return kwargs['pk']
 
@@ -117,3 +117,22 @@ def order_by_price():
     low_price = product.select_related('-price')
     answer = {'high_price': high_price, 'low_price': low_price}
     return answer
+
+
+@register.simple_tag()
+def most_popular_products():
+    product = Product.objects.all()
+    return product.order_by('-reviews')[:8]
+
+
+@register.simple_tag()
+def limited_offer():
+    product = Product.objects.all()
+    return product.order_by('count')[:7]
+
+
+@register.simple_tag()
+def best_rating():
+    product = Product.objects.all().order_by('-rating')
+    return product.first()
+
