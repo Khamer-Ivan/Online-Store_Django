@@ -20,14 +20,9 @@ class CatalogView(ListView):
     template_name = 'products/catalog.html'
 
 
-old_sort = 0
-
-
 def all_catalog(request: HttpRequest, **kwargs):
 
     """Представление всех товаров в магазине с учётом выбора сортировки"""
-
-    global old_sort
 
     if request.method == 'GET':
         sort = kwargs['sort']

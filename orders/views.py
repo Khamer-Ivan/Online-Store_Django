@@ -180,7 +180,7 @@ class OrderStepFour(View):
 
 class OrderHistory(View):
     def get(self, request: HttpRequest):
-        order = Order.objects.filter(customer=request.user, in_order=True)
+        order = Order.objects.filter(customer=request.user, in_order=True).order_by('-date')
         return render(request, 'orders/historyorder.html', {'order': order})
 
 
