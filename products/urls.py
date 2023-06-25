@@ -16,7 +16,7 @@ app_name = "products"
 
 urlpatterns = [
     path("catalog/<int:sort>", all_catalog, name="catalog"),
-    path("product//<int:pk>/", product_detail, name="product"),
+    path("product/<int:pk>/", product_detail, name="product"),
     path("category/<int:pk>/", CategoryView.as_view(), name="category"),
     path("tag/<int:pk>/", TagView.as_view(), name="tag"),
     path("product_reviews/<int:pk>/", product_reviews, name="product_reviews"),
