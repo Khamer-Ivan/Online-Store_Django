@@ -108,7 +108,7 @@ def order_step_1(request: HttpRequest):
 
                 return redirect('orders:order_step_2')
             else:
-                return redirect('profile:login')
+                return redirect('login')
     else:
         form = OrderStepOneForm()
         return render(request, 'orders/order_step_1.html', {'form': form})
@@ -177,7 +177,7 @@ class OrderStepFour(View):
             return render(request, 'orders/order_step_4.html', {'order': order})
 
         else:
-            return redirect('profiles:login')
+            return redirect('login')
 
 
 class OrderHistory(View):

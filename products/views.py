@@ -89,13 +89,13 @@ def product_detail(request: HttpRequest, **kwargs):
                     product=product,
                     quantity=1
                 )
-                return redirect('profile:index')
+                return redirect('index')
 
             else:
                 cart = basket.first()
                 cart.quantity += 1
                 cart.save()
-                return redirect('profile:index')
+                return redirect('index')
 
     else:
         product = Product.objects.get(id=kwargs['pk'])
@@ -128,7 +128,7 @@ def product_reviews(request: HttpRequest, **kwargs):
                 )
                 return redirect(request.META['HTTP_REFERER'])
         else:
-            return redirect('profile:login')
+            return redirect('login')
     else:
         form = ReviewsForm()
         return redirect('products:product')

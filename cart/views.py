@@ -6,7 +6,7 @@ from django.db import transaction
 
 
 def cart_detail(request: HttpRequest, **kwargs):
-    return redirect('profile:cart')
+    return redirect('cart')
 
 
 def delete_product(request: HttpRequest, **kwargs):
