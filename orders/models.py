@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from my_store_app.models import Profile
+from profile.models import Profile
 from products.models import Product
 
 

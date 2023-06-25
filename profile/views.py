@@ -5,12 +5,12 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView
 
-from my_store_app.models import Profile
+from profile.models import Profile
 from products.models import Product, TagsFile, Reviews, Specifications, Shop, Sales, CategoryProduct
 from orders.models import Order, OrderHistory
 from cart.models import Cart, Payment
 
-from my_store_app.forms import AuthorRegisterForm
+from profile.forms import AuthorRegisterForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LogoutView, LoginView
 from django.contrib.auth.models import User
@@ -37,7 +37,7 @@ def register_view(request):
             Profile.objects.create(user=user, username=username, full_name=full_name, phone=phone, email=email)
         return redirect('/')
 
-    return render(request, 'my_store_app/registr.html')
+    return render(request, 'profile/registr.html')
 
 
 class AuthorLogoutView(LogoutView):
@@ -67,19 +67,19 @@ class CategoryView(View):
         popular_product = Product.objects.all().order_by('-reviews')[:8]
         limited_edition = Product.objects.filter(free_delivery=False)
         banners = Product.objects.all().order_by('-rating')
-        return render(request, 'my_store_app/index.html', {'popular_product': popular_product,
+        return render(request, 'profile/index.html', {'popular_product': popular_product,
                                                            'limited_edition': limited_edition,
                                                            'banners': banners})
 
 
 class AccountView(View):
     def get(self, request: HttpRequest):
-        return render(request, 'my_store_app/account.html')
+        return render(request, 'profile/account.html')
 
 
 class ProfileView(View):
     def get(self, request: HttpRequest):
-        return render(request, 'my_store_app/profile.html')
+        return render(request, 'profile/profile.html')
 
 
 class CartView(View):

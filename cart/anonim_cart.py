@@ -1,6 +1,6 @@
 from decimal import Decimal
 from django.conf import settings
-from my_store_app.models import Sales
+from profile.models import Sales
 
 
 class AnonymCart:

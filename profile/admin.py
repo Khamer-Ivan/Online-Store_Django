@@ -1,5 +1,5 @@
 from django.contrib import admin
-from my_store_app.models import Profile
+from profile.models import Profile
 from products.models import Product, Shop, Specifications, TagsFile, CategoryProduct, Reviews, Sales
 from orders.models import Order, OrderHistory
 from cart.models import Cart, Payment

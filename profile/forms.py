@@ -1,5 +1,5 @@
 from django import forms
-from my_store_app.models import Profile
+from profile.models import Profile
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 

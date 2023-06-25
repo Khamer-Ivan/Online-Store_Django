@@ -1,4 +1,4 @@
-{% extends 'my_store_app/base_register.html' %}
+{% extends 'profile/base_register.html' %}
 {% load static %}
 {% block content %}
             <div class="wrapper">
@@ -33,7 +33,7 @@
                     <input type="submit" value="Зарегистрироваться" />
 
 
-                    <a class="registr" href="{% url 'my_store_app:login' %}">Вход</a>
+                    <a class="registr" href="{% url 'profile:login' %}">Вход</a>
                     <div class="clear"></div>
                 </form>
             </div>

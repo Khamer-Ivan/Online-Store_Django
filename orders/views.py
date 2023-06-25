@@ -108,7 +108,7 @@ def order_step_1(request: HttpRequest):
 
                 return redirect('orders:order_step_2')
             else:
-                return redirect('my_store_app:login')
+                return redirect('profile:login')
     else:
         form = OrderStepOneForm()
         return render(request, 'orders/order_step_1.html', {'form': form})

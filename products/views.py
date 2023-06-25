@@ -5,7 +5,7 @@ from django.views.generic import ListView, DetailView
 from django import template
 from django.db import transaction
 
-from my_store_app.models import Profile
+from profile.models import Profile
 from products.models import Product, CategoryProduct, TagsFile, Reviews
 from cart.models import Cart
 from .forms import ReviewsForm, QueryForm
@@ -89,13 +89,13 @@ def product_detail(request: HttpRequest, **kwargs):
                     product=product,
                     quantity=1
                 )
-                return redirect('my_store_app:index')
+                return redirect('profile:index')
 
             else:
                 cart = basket.first()
                 cart.quantity += 1
                 cart.save()
-                return redirect('my_store_app:index')
+                return redirect('profile:index')
 
     else:
         product = Product.objects.get(id=kwargs['pk'])
@@ -128,7 +128,7 @@ def product_reviews(request: HttpRequest, **kwargs):
                 )
                 return redirect(request.META['HTTP_REFERER'])
         else:
-            return redirect('my_store_app:login')
+            return redirect('profile:login')
     else:
         form = ReviewsForm()
         return redirect('products:product')
