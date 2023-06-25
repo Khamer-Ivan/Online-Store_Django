@@ -1,16 +1,8 @@
 from django.contrib import admin
-from my_store_app.models import (Profile,
-                                 Sales,
-                                 CategoryProduct,
-                                 Product, TagsFile,
-                                 Reviews,
-                                 Specifications,
-                                 OrderHistory,
-                                 Order,
-                                 Cart,
-                                 Payment,
-                                 Shop,
-                                 )
+from my_store_app.models import Profile
+from products.models import Product, Shop, Specifications, TagsFile, CategoryProduct, Reviews, Sales
+from orders.models import Order, OrderHistory
+from cart.models import Cart, Payment
 
 
 class SalesAdmin(admin.ModelAdmin):

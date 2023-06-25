@@ -1,6 +1,7 @@
 from django.http import HttpRequest
 from django.shortcuts import render, redirect
-from my_store_app.models import Product, Cart
+from products.models import Product
+from cart.models import Cart
 from django.db import transaction
 
 

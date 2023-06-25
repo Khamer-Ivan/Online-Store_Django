@@ -5,7 +5,9 @@ from django.views.generic import ListView, DetailView
 from django import template
 from django.db import transaction
 
-from my_store_app.models import Product, CategoryProduct, TagsFile, Cart, Profile, Reviews
+from my_store_app.models import Profile
+from products.models import Product, CategoryProduct, TagsFile, Reviews
+from cart.models import Cart
 from .forms import ReviewsForm, QueryForm
 
 register = template.Library()

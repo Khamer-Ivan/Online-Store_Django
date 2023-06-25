@@ -4,18 +4,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView
-from my_store_app.models import (Profile,
-                                 Sales,
-                                 CategoryProduct,
-                                 Product, TagsFile,
-                                 Reviews,
-                                 Specifications,
-                                 OrderHistory,
-                                 Order,
-                                 Cart,
-                                 Payment,
-                                 Shop
-                                 )
+
+from my_store_app.models import Profile
+from products.models import Product, TagsFile, Reviews, Specifications, Shop, Sales, CategoryProduct
+from orders.models import Order, OrderHistory
+from cart.models import Cart, Payment
+
 from my_store_app.forms import AuthorRegisterForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LogoutView, LoginView

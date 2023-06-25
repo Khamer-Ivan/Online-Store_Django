@@ -1,7 +1,10 @@
 from django import template
 from django.http import HttpRequest
 
-from my_store_app.models import Product, CategoryProduct, TagsFile, Cart, Profile, ProductInOrder, Reviews
+from my_store_app.models import Profile
+from products.models import Product, CategoryProduct, TagsFile, Reviews
+from cart.models import Cart
+from orders.models import ProductInOrder
 
 register = template.Library()
 

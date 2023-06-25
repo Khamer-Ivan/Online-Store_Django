@@ -3,7 +3,9 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import DetailView
 
-from my_store_app.models import Order, Cart, ProductInOrder, Product
+from orders.models import Order, ProductInOrder
+from products.models import Product
+from cart.models import Cart
 from .forms import PaymentForm, OrderStepOneForm, OrderStepTwoForm, OrderStepThreeForm
 
 
