@@ -6,26 +6,24 @@ from django.db import transaction
 
 
 def cart_detail(request: HttpRequest, **kwargs):
-    return redirect('cart')
+    return redirect("cart")
 
 
 def delete_product(request: HttpRequest, **kwargs):
     with transaction.atomic():
-        product = Cart.objects.get(id=kwargs['id'])
-        Cart.objects.get(id=kwargs['id']).delete()
+        product = Cart.objects.get(id=kwargs["id"])
+        Cart.objects.get(id=kwargs["id"]).delete()
 
         prod_count = Product.objects.get(id=product.product.id)
         count = product.quantity + prod_count.count
-        Product.objects.filter(id=product.product.id).update(
-            count=count
-        )
-    return redirect(request.META['HTTP_REFERER'])
+        Product.objects.filter(id=product.product.id).update(count=count)
+    return redirect(request.META["HTTP_REFERER"])
 
 
 def update_product(request: HttpRequest, **kwargs):
-    product = Cart.objects.get(id=kwargs['id'])
+    product = Cart.objects.get(id=kwargs["id"])
     old_count = product.quantity
-    count = request.POST.get('amount')
+    count = request.POST.get("amount")
     prod_count = Product.objects.get(id=product.product.id)
     if old_count > int(count):
         remove = product.product.count
@@ -35,13 +33,10 @@ def update_product(request: HttpRequest, **kwargs):
         new_count = prod_count.count - (int(count) - old_count)
     if product.product.count >= remove:
         with transaction.atomic():
-
-            Cart.objects.filter(id=kwargs['id']).update(
+            Cart.objects.filter(id=kwargs["id"]).update(
                 quantity=count,
             )
 
-            Product.objects.filter(id=product.product.id).update(
-                count=new_count
-            )
+            Product.objects.filter(id=product.product.id).update(count=new_count)
 
-    return redirect(request.META['HTTP_REFERER'])
+    return redirect(request.META["HTTP_REFERER"])

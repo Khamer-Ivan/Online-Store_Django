@@ -17,7 +17,7 @@ class OrderStepOneForm(forms.ModelForm):
 
     class Meta:
         model = Order
-        fields = ['fio', 'phone', 'email']
+        fields = ["fio", "phone", "email"]
 
 
 class OrderStepTwoForm(forms.ModelForm):
@@ -31,18 +31,10 @@ class OrderStepTwoForm(forms.ModelForm):
     class Meta:
         model = Order
         widgets = {
-            'delivery': forms.RadioSelect(
-                attrs={
-                    'class': 'toggle-box'
-                }
-            ),
-            'address': forms.Textarea(
-                attrs={
-                    'class': 'form-textarea'
-                }
-            )
+            "delivery": forms.RadioSelect(attrs={"class": "toggle-box"}),
+            "address": forms.Textarea(attrs={"class": "form-textarea"}),
         }
-        fields = ['delivery', 'city', 'address']
+        fields = ["delivery", "city", "address"]
 
 
 class OrderStepThreeForm(forms.ModelForm):
@@ -56,9 +48,6 @@ class OrderStepThreeForm(forms.ModelForm):
     class Meta:
         model = Order
         widgets = {
-            'payment_method': forms.RadioSelect(
-                attrs={
-                    'class': 'toggle-box'
-                }
-            ), }
-        fields = ['payment_method']
+            "payment_method": forms.RadioSelect(attrs={"class": "toggle-box"}),
+        }
+        fields = ["payment_method"]

@@ -6,70 +6,276 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('profile', '0001_initial'),
+        ("profile", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('products', '0001_initial'),
+        ("products", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Order',
+            name="Order",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('fio', models.CharField(blank=True, max_length=100, null=True, verbose_name='name and lastname')),
-                ('phone', models.CharField(blank=True, max_length=16, null=True, verbose_name='phone number')),
-                ('email', models.EmailField(blank=True, max_length=254, null=True, verbose_name='email')),
-                ('delivery', models.CharField(choices=[('reg', 'Обычная доставка'), ('exp', 'Экспресс доставка')], default='reg', max_length=3, verbose_name='delivery')),
-                ('payment_method', models.CharField(choices=[('card', 'Онлайн картой'), ('cash', 'Онлайн со случайного чужого счета')], default='card', max_length=4, verbose_name='payment method')),
-                ('city', models.CharField(blank=True, max_length=25, null=True, verbose_name='city')),
-                ('address', models.TextField(blank=True, max_length=255, null=True, verbose_name='address')),
-                ('in_order', models.BooleanField(default=False, verbose_name='in order')),
-                ('paid', models.BooleanField(default=False, verbose_name='order is payed')),
-                ('braintree_id', models.CharField(blank=True, max_length=150, verbose_name='transaction id')),
-                ('delivery_cost', models.DecimalField(decimal_places=2, default=0, max_digits=10, verbose_name='delivery cost')),
-                ('count', models.IntegerField(default=0, verbose_name='колличество  товаров в корзине')),
-                ('price', models.IntegerField(default=0, verbose_name='общая стоимость  товаров в корзине')),
-                ('date', models.DateField(auto_now_add=True)),
-                ('free_delivery', models.BooleanField(default=False, verbose_name='наличие бесплатной доставки')),
-                ('customer', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='orders', to=settings.AUTH_USER_MODEL, verbose_name='customer')),
-                ('product_order', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='product_order', to='products.product', verbose_name='товар')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "fio",
+                    models.CharField(
+                        blank=True,
+                        max_length=100,
+                        null=True,
+                        verbose_name="name and lastname",
+                    ),
+                ),
+                (
+                    "phone",
+                    models.CharField(
+                        blank=True,
+                        max_length=16,
+                        null=True,
+                        verbose_name="phone number",
+                    ),
+                ),
+                (
+                    "email",
+                    models.EmailField(
+                        blank=True, max_length=254, null=True, verbose_name="email"
+                    ),
+                ),
+                (
+                    "delivery",
+                    models.CharField(
+                        choices=[
+                            ("reg", "Обычная доставка"),
+                            ("exp", "Экспресс доставка"),
+                        ],
+                        default="reg",
+                        max_length=3,
+                        verbose_name="delivery",
+                    ),
+                ),
+                (
+                    "payment_method",
+                    models.CharField(
+                        choices=[
+                            ("card", "Онлайн картой"),
+                            ("cash", "Онлайн со случайного чужого счета"),
+                        ],
+                        default="card",
+                        max_length=4,
+                        verbose_name="payment method",
+                    ),
+                ),
+                (
+                    "city",
+                    models.CharField(
+                        blank=True, max_length=25, null=True, verbose_name="city"
+                    ),
+                ),
+                (
+                    "address",
+                    models.TextField(
+                        blank=True, max_length=255, null=True, verbose_name="address"
+                    ),
+                ),
+                (
+                    "in_order",
+                    models.BooleanField(default=False, verbose_name="in order"),
+                ),
+                (
+                    "paid",
+                    models.BooleanField(default=False, verbose_name="order is payed"),
+                ),
+                (
+                    "braintree_id",
+                    models.CharField(
+                        blank=True, max_length=150, verbose_name="transaction id"
+                    ),
+                ),
+                (
+                    "delivery_cost",
+                    models.DecimalField(
+                        decimal_places=2,
+                        default=0,
+                        max_digits=10,
+                        verbose_name="delivery cost",
+                    ),
+                ),
+                (
+                    "count",
+                    models.IntegerField(
+                        default=0, verbose_name="колличество  товаров в корзине"
+                    ),
+                ),
+                (
+                    "price",
+                    models.IntegerField(
+                        default=0, verbose_name="общая стоимость  товаров в корзине"
+                    ),
+                ),
+                ("date", models.DateField(auto_now_add=True)),
+                (
+                    "free_delivery",
+                    models.BooleanField(
+                        default=False, verbose_name="наличие бесплатной доставки"
+                    ),
+                ),
+                (
+                    "customer",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="orders",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="customer",
+                    ),
+                ),
+                (
+                    "product_order",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="product_order",
+                        to="products.product",
+                        verbose_name="товар",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Покупка',
-                'verbose_name_plural': 'Покупки',
+                "verbose_name": "Покупка",
+                "verbose_name_plural": "Покупки",
             },
         ),
         migrations.CreateModel(
-            name='ProductInOrder',
+            name="ProductInOrder",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('quantity', models.PositiveIntegerField(default=0, null=True)),
-                ('order', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='order', to='orders.order')),
-                ('product', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='prod', to='products.product')),
-                ('user', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='user', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("quantity", models.PositiveIntegerField(default=0, null=True)),
+                (
+                    "order",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="order",
+                        to="orders.order",
+                    ),
+                ),
+                (
+                    "product",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="prod",
+                        to="products.product",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="user",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='OrderHistory',
+            name="OrderHistory",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('payment_date', models.DateField(auto_now_add=True)),
-                ('delivery_type', models.TextField(default='не указан', max_length=30, verbose_name='способ доставки')),
-                ('payment_type', models.TextField(default='не указан', max_length=30, verbose_name='способ оплаты')),
-                ('total_cost', models.IntegerField(default=0, verbose_name='общая стоимость заказа')),
-                ('status', models.TextField(default='не указан', max_length=30, verbose_name='статус оплаты')),
-                ('city', models.TextField(default='не указан', max_length=30, verbose_name='город доставки')),
-                ('address', models.TextField(default='не указан', max_length=30, verbose_name='адрес доставки')),
-                ('product_order', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='products.product', verbose_name='товар')),
-                ('user_order', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='profile.profile', verbose_name='пользователь')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("payment_date", models.DateField(auto_now_add=True)),
+                (
+                    "delivery_type",
+                    models.TextField(
+                        default="не указан",
+                        max_length=30,
+                        verbose_name="способ доставки",
+                    ),
+                ),
+                (
+                    "payment_type",
+                    models.TextField(
+                        default="не указан", max_length=30, verbose_name="способ оплаты"
+                    ),
+                ),
+                (
+                    "total_cost",
+                    models.IntegerField(
+                        default=0, verbose_name="общая стоимость заказа"
+                    ),
+                ),
+                (
+                    "status",
+                    models.TextField(
+                        default="не указан", max_length=30, verbose_name="статус оплаты"
+                    ),
+                ),
+                (
+                    "city",
+                    models.TextField(
+                        default="не указан",
+                        max_length=30,
+                        verbose_name="город доставки",
+                    ),
+                ),
+                (
+                    "address",
+                    models.TextField(
+                        default="не указан",
+                        max_length=30,
+                        verbose_name="адрес доставки",
+                    ),
+                ),
+                (
+                    "product_order",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="products.product",
+                        verbose_name="товар",
+                    ),
+                ),
+                (
+                    "user_order",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="profile.profile",
+                        verbose_name="пользователь",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'История покупок',
-                'verbose_name_plural': 'Истории покупок',
+                "verbose_name": "История покупок",
+                "verbose_name_plural": "Истории покупок",
             },
         ),
     ]

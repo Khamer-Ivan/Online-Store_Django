@@ -8,12 +8,11 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('cart/', include('cart.urls')),
-    path('', include("profile.urls")),
-    path('products/', include('products.urls')),
-    path('orders/', include('orders.urls')),
-
+    path("admin/", admin.site.urls),
+    path("cart/", include("cart.urls")),
+    path("", include("profile.urls")),
+    path("products/", include("products.urls")),
+    path("orders/", include("orders.urls")),
     # path('password/', auth_views.PasswordChangeView.as_view(), name='password'),
     # path('password-reset/', auth_views.PasswordResetView.as_view(
     #     template_name='profile/password_reset_form.html'),

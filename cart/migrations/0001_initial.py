@@ -5,42 +5,72 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('profile', '0001_initial'),
-        ('products', '0001_initial'),
+        ("profile", "0001_initial"),
+        ("products", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Payment',
+            name="Payment",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('number', models.IntegerField(default=0, verbose_name='номер счета')),
-                ('name', models.TextField(default='не указан', max_length=30)),
-                ('month', models.DateField(auto_now_add=True)),
-                ('year', models.DateField(auto_now_add=True)),
-                ('code', models.IntegerField(default=0, verbose_name='код оплаты')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("number", models.IntegerField(default=0, verbose_name="номер счета")),
+                ("name", models.TextField(default="не указан", max_length=30)),
+                ("month", models.DateField(auto_now_add=True)),
+                ("year", models.DateField(auto_now_add=True)),
+                ("code", models.IntegerField(default=0, verbose_name="код оплаты")),
             ],
             options={
-                'verbose_name': 'Оплата',
-                'verbose_name_plural': 'Оплата',
+                "verbose_name": "Оплата",
+                "verbose_name_plural": "Оплата",
             },
         ),
         migrations.CreateModel(
-            name='Cart',
+            name="Cart",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('quantity', models.PositiveIntegerField(default=0)),
-                ('create_at', models.DateField(auto_now_add=True)),
-                ('product', models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='product', to='products.product')),
-                ('username', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='profile', to='profile.profile')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("quantity", models.PositiveIntegerField(default=0)),
+                ("create_at", models.DateField(auto_now_add=True)),
+                (
+                    "product",
+                    models.ForeignKey(
+                        default=1,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="product",
+                        to="products.product",
+                    ),
+                ),
+                (
+                    "username",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="profile",
+                        to="profile.profile",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Корзина',
-                'verbose_name_plural': 'Корзины',
+                "verbose_name": "Корзина",
+                "verbose_name_plural": "Корзины",
             },
         ),
     ]
